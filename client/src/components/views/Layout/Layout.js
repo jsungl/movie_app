@@ -15,7 +15,7 @@ export default function Layout() {
             <CssBaseline />
             <Container maxWidth="lg">
                 <Header />
-                <Box component='main' sx={{ width: '100%', mt:"50px", mb:"50px" }}>
+                <Box component='main' sx={{ width: '100%', mb:"50px" }}>
                     <Outlet/>
                 </Box>
                 {/* <Box component='main' sx={{ width: '100%', height: '100vh', mt:"50px", mb:"50px" }}>
