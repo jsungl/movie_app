@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/api/users', require('./routes/user'));
+app.use('/api/favorite', require('./routes/favorite'));
 
 mongoose.connect(config.dbURI)
     .then(() => console.log("MongoDB connected!"))

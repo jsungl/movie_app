@@ -62,6 +62,7 @@ export default function Header() {
                             Logo
                         </Link>
                     </Typography>
+                    <Button variant="text" onClick={()=> navigate('/favorite')}>Favorite</Button>
                     <Box sx={{ flex: 1 }}/>
                     <IconButton>
                         <SearchIcon />

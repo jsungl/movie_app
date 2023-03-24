@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER } from "../_actions/types";
 
 export default function reducer(state = {}, action) {
     switch (action.type) {
@@ -6,7 +6,7 @@ export default function reducer(state = {}, action) {
         case LOGIN_USER:
             return {
                 ...state,
-                loginSuccess: action.payload
+                login: action.payload
             }
         case REGISTER_USER:
             return {
@@ -17,6 +17,11 @@ export default function reducer(state = {}, action) {
             return {
                 ...state,
                 userData: action.payload
+            }
+        case LOGOUT_USER:
+            return {
+                ...state,
+                logout: action.payload
             }
         default:
             return state;
