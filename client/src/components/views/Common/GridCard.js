@@ -10,16 +10,29 @@ import Link from '@mui/material/Link';
 // import Typography from '@mui/material/Typography';
 // import { useNavigate } from 'react-router-dom';
 
-export default function GridCard({ image, movieId, movieName }) {
-    // const navigate = useNavigate();
+export default function GridCard({ image, movieId, movieName, actorName }) {
 
-    return (
-        <Col lg={6} md={8} xs={24}>
-            <div style={{ position: 'relative' }}>
-                <Link href={`/movie/${movieId}`} underline="none" color="#fff" sx={{ "&:hover": { textDecoration: "none" } }}>
-                        <img src={image} alt={movieName} style={{ width: '100%', height: '320px' }}/>
-                </Link>
-            </div>
-        </Col>
-    );
+    if(actorName) {
+
+        return (
+            <Col lg={6} md={8} xs={24}>
+                <div style={{ position: 'relative' }}>
+                    <img src={image} alt={actorName} style={{ width: '100%', height: '320px' }}/>
+                </div>
+            </Col>
+        );
+
+    }else {
+        
+        return (
+            <Col lg={6} md={8} xs={24}>
+                <div style={{ position: 'relative' }}>
+                    <Link href={`/movie/${movieId}`} underline="none" color="#fff" sx={{ "&:hover": { textDecoration: "none" } }}>
+                            <img src={image} alt={movieName} style={{ width: '100%', height: '320px' }}/>
+                    </Link>
+                </div>
+            </Col>
+
+        )
+    }
 }

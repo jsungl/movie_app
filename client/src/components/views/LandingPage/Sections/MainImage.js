@@ -14,7 +14,7 @@ export default function MainImage({ images }) {
         }
     });
 
-    console.log(contentStyles);
+    // console.log(contentStyles);
 
     return (
         <Carousel autoplay>
