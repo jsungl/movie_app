@@ -65,12 +65,17 @@ function FavoritePage() {
         );
     })
 
+    const emptyCards = 
+        <tr>
+            <td colSpan="3" style={{ textAlign: 'center' }}>empty</td>
+        </tr>
+    
+
     return (
         <div>
             <h2> Favorite Movies </h2>
             <hr/>
-
-            <table>
+            <table className='favoriteTable'>
                 <thead>
                     <tr>
                         <th>Movie Title</th>
@@ -79,7 +84,7 @@ function FavoritePage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderCards}
+                    {favorites.length === 0 ? emptyCards : renderCards}
                 </tbody>
             </table>
         </div>

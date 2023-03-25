@@ -184,7 +184,7 @@ function RegisterPage() {
                     </Button>
                     <Grid container>
                         <Grid item>
-                            <Link>Already have an account? Sign in</Link>
+                            <Link href='/login'>Already have an account? Sign in</Link>
                         </Grid>
                     </Grid>
                 </Box>

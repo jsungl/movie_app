@@ -5,43 +5,69 @@ import Auth from '../../../hoc/auth';
 import { API_KEY } from '../../Key';
 import { API_URL, IMAGE_BASE_URL } from '../../Config';
 import DetailMainImage from './Sections/DetailMainImage';
+import Comments from './Sections/Comments';
 import MovieInfo from './Sections/MovieInfo';
 import GridCard from '../Common/GridCard';
 import Favorite from './Sections/Favorite';
 import { Button, Row } from 'antd';
+import axios from 'axios';
 
 function MovieDetail() {
     let { movieId } = useParams();
     const user = useSelector(state => state.user);
     const [movie, setMovie] = useState(null);
     const [casts, setCasts] = useState([]);
+    const [commentList, setCommentList] = useState([]);
     const [actorToggle, setActorToggle] = useState(false);
-    // console.log(movieId);
+    // console.log(user.userData === true);
 
     useEffect(() => {
 
-        let endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+        let endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=ko-KR`;
         let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
 
-
+        // 영화 전체 정보 가져오기
         fetch(endpoint)
             .then(res => res.json())
             .then(res => {
                 setMovie(res);
+
+                // 영화 캐스팅 정보 가져오기
+                fetch(endpointCrew)
+                .then(res => res.json())
+                .then(res => {
+                    setCasts(res.cast)
+                })
             })
+            .catch(err => console.error(err))
         
-        fetch(endpointCrew)
-            .then(res => res.json())
-            .then(res => {
-                // console.log(res);
-                setCasts(res.cast)
-            })
+        
+        
+        // 영화에 대한 모든 댓글 가져오기
+        axios.get('/api/comment/getComments', {
+            params:{
+                movieId
+            }
+        })
+        .then(res=> {
+            if (res.data.success) {
+                // console.log('comments',res.data.comments);
+                setCommentList(res.data.comments)
+            }else {
+                alert('댓글 가져오기 실패');
+            }
+        })
+        
         
     },[movieId])
 
 
     const toggleActorView = () => {
         setActorToggle(!actorToggle);
+    }
+
+    const refreshComment = (newComment) => {
+        setCommentList(commentList.concat(newComment));
     }
 
 
@@ -52,7 +78,7 @@ function MovieDetail() {
                 
                 {/* Header */}
                 <DetailMainImage 
-                    image={`${IMAGE_BASE_URL}w1280${movie.backdrop_path}`} title={movie.original_title} text={movie.overview}/>
+                    image={`${IMAGE_BASE_URL}w1280${movie.backdrop_path}`} title={movie.title} text={movie.overview}/>
                 
     
                 {/* Body */}
@@ -86,6 +112,9 @@ function MovieDetail() {
                             ))}
                         </Row>
                     }
+
+                    {/* Comments */}
+                    <Comments movieTitle={movie.title} movieId={movieId} commentList={commentList} refreshComment={refreshComment}/>
     
                 </div>
     

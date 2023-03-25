@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api/users', require('./routes/user'));
 app.use('/api/favorite', require('./routes/favorite'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/like', require('./routes/like'));
 
 mongoose.connect(config.dbURI)
     .then(() => console.log("MongoDB connected!"))

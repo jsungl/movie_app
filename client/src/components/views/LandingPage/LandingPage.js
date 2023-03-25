@@ -15,7 +15,7 @@ function LandingPage() {
     // console.log(user);
 
     useEffect(() => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
 
         fetch(endpoint)
         .then(res => res.json())
@@ -29,7 +29,7 @@ function LandingPage() {
     },[]);
 
     const loadMoreItems = () => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage + 1}`;
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=${currentPage + 1}`;
         
         fetch(endpoint)
         .then(res => res.json())
@@ -51,7 +51,7 @@ function LandingPage() {
                 }
                 
                 <div style={{ width: '100%' }}>
-                    <h2>Movies by latest</h2>
+                    <h2>What's Popular</h2>
                     <hr/>
                     <Row gutter={[16,16]}>
                         {movies && movies.map((movie, index) => (

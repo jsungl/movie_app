@@ -4,10 +4,10 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import logo from '../../../assets/images/MovieAPP_logo.png';
 
 export default function Header() {
     const navigate = useNavigate();
@@ -31,14 +31,14 @@ export default function Header() {
         return(
             <>
                 <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    {/* <Link href="/" underline="none" color="#fff" sx={{ px: "8px", "&:hover": { textDecoration: "none" } }}>
-                        <img src={'http://localhost:5000/static/images/HappyTubeLogo.png'} alt="Logo" height="50" width="120"/>
-                    </Link> */}
-                    <Typography variant="h6" component="div">
+                    <Link href="/" underline="none" color="#fff" sx={{ height: "40px", px: "8px", "&:hover": { textDecoration: "none" } }}>
+                        <img src={logo} alt="Logo" style={{ width: "120px", height: "100%" }}/>
+                    </Link>
+                    {/* <Typography variant="h6" component="div">
                         <Link href="/" underline="none" color="#000" sx={{ px: "8px", "&:hover": { textDecoration: "none" } }}>
                             Logo
                         </Link>
-                    </Typography>
+                    </Typography> */}
                     <Box sx={{ flex: 1 }}/>
                     <IconButton>
                         <SearchIcon />
@@ -54,14 +54,9 @@ export default function Header() {
         return (
             <>
                 <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    {/* <Link href="/" underline="none" color="#fff" sx={{ px: "8px", "&:hover": { textDecoration: "none" } }}>
-                        <img src={'http://localhost:5000/static/images/HappyTubeLogo.png'} alt="Logo" height="50" width="120"/>
-                    </Link> */}
-                    <Typography variant="h6" component="div">
-                        <Link href="/" underline="none" color="#000" sx={{ px: "8px", "&:hover": { textDecoration: "none" } }}>
-                            Logo
-                        </Link>
-                    </Typography>
+                    <Link href="/" underline="none" color="#fff" sx={{ height: "40px", px: "8px", "&:hover": { textDecoration: "none" } }}>
+                        <img src={logo} alt="Logo" style={{ width: "120px", height: "100%" }}/>
+                    </Link>
                     <Button variant="text" onClick={()=> navigate('/favorite')}>Favorite</Button>
                     <Box sx={{ flex: 1 }}/>
                     <IconButton>

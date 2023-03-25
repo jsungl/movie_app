@@ -1,5 +1,6 @@
 import { Col } from 'antd';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 // import Box from '@mui/material/Box';
 // import Grid from '@mui/material/Grid';
 // import Card from '@mui/material/Card';
@@ -27,8 +28,11 @@ export default function GridCard({ image, movieId, movieName, actorName }) {
         return (
             <Col lg={6} md={8} xs={24}>
                 <div style={{ position: 'relative' }}>
-                    <Link href={`/movie/${movieId}`} underline="none" color="#fff" sx={{ "&:hover": { textDecoration: "none" } }}>
+                    {/* <Link href={`/movie/${movieId}`} underline="none" color="#fff" sx={{ "&:hover": { textDecoration: "none" } }}>
                             <img src={image} alt={movieName} style={{ width: '100%', height: '320px' }}/>
+                    </Link> */}
+                    <Link to={`/movie/${movieId}`}>
+                        <img src={image} alt={movieName} style={{ width: '100%', height: '320px' }}/>
                     </Link>
                 </div>
             </Col>

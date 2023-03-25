@@ -14,26 +14,28 @@ export default function Favorite({ userFrom, movieId, movieInfo }) {
             }
         }).then(res => {
             if(res.data.success) {
-                console.log(res.data.favoriteNumber);
+                // console.log(res.data.favoriteNumber);
                 setFavoriteNumber(res.data.favoriteNumber);
             }else {
                 alert('favorite number 정보 가져오기 실패');
             }
         })
 
-        axios.get('/api/favorite/favorited', {
-            params: {
-                movieId,
-                userFrom
-            }
-        }).then(res => {
-            if(res.data.success) {
-                console.log(res.data.favorited);
-                setFavorited(res.data.favorited);
-            }else {
-                alert('favorited 정보 가져오기 실패');
-            }
-        })
+        if(userFrom) {
+            axios.get('/api/favorite/favorited', {
+                params: {
+                    movieId,
+                    userFrom
+                }
+            }).then(res => {
+                if(res.data.success) {
+                    // console.log(res.data.favorited);
+                    setFavorited(res.data.favorited);
+                }else {
+                    alert('favorited 정보 가져오기 실패');
+                }
+            })
+        }
 
     },[movieId, userFrom])
 
@@ -56,15 +58,20 @@ export default function Favorite({ userFrom, movieId, movieInfo }) {
             let moviePost = movieInfo.backdrop_path;
             let movieRunTime = movieInfo.runtime;
 
-            axios.post('/api/favorite/addToFavorite', { userFrom, movieId, movieTitle, moviePost, movieRunTime })
-            .then(res => {
-                if(res.data.success) {
-                    setFavoriteNumber(favoriteNumber + 1);
-                    setFavorited(!favorited);
-                }else {
-                    alert('favorite list에 추가 실패');
-                }
-            })
+            if(userFrom) {
+
+                axios.post('/api/favorite/addToFavorite', { userFrom, movieId, movieTitle, moviePost, movieRunTime })
+                .then(res => {
+                    if(res.data.success) {
+                        setFavoriteNumber(favoriteNumber + 1);
+                        setFavorited(!favorited);
+                    }else {
+                        alert('favorite list에 추가 실패');
+                    }
+                })
+            }else {
+                return alert('로그인을 먼저 해주세요');    
+            }
 
         }
 
