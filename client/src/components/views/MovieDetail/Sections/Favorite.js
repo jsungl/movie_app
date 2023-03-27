@@ -55,7 +55,8 @@ export default function Favorite({ userFrom, movieId, movieInfo }) {
 
         }else {
             let movieTitle = movieInfo.title;
-            let moviePost = movieInfo.backdrop_path;
+            // let moviePost = movieInfo.backdrop_path;
+            let moviePost = movieInfo.poster_path;
             let movieRunTime = movieInfo.runtime;
 
             if(userFrom) {

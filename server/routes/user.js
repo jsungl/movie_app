@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/User');
 const { auth } = require('../middleware/auth');
+const { Notification } = require('../models/Notification');
 
 
 router.post('/preRegister', (req, res) => {
@@ -56,13 +57,15 @@ router.post('/login', (req, res) => {
             }
 
             //비밀번호가 일치하면 jwt 이용하여 토큰 생성
-            user.generateToken((err, _user) => {
-                //console.log(_user);
+            user.generateToken((err, user) => {
+                
                 if(err) return res.status(400).send(err);
 
+
+
                 // 토큰을 쿠키에 저장
-                res.cookie('x_authExp', _user.tokenExp);
-                res.cookie('x_auth',user.token).status(200).json({ success: true, userId: user._id });
+                res.cookie('x_authExp', user.tokenExp);
+                res.cookie('x_auth', user.token).status(200).json({ success: true, userId: user._id });
 
             })
 

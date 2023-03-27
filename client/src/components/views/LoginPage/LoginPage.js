@@ -26,9 +26,8 @@ function LoginPage() {
         
         dispatch(loginUser(body)) // loginUser라는 action을 실행
         .then(res => {
-            //console.log(res);
             if(res.payload.success) {
-                // navigate('/', { state: { login: true } });
+                // console.log(res.payload.userId);
                 navigate('/');
             }else {
                 alert(res.payload.message);

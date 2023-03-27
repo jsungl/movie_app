@@ -26,22 +26,24 @@ export default function Comments({ movieTitle, movieId, commentList, refreshComm
         let body = {
             content: comment,
             writer: user.userData._id,
-            movieId: movieId
+            movieId: movieId,
+            deleted: false
         }
-        // console.log(body);
 
         axios.post('/api/comment/saveComment', body)
         .then(res => {
             if(res.data.success) {
-                // console.log(res.data.result);
+                console.log(res.data.result);
                 setComment("");
-                refreshComment(res.data.result);
+                refreshComment(res.data.result, 'save');
             }else {
                 alert('댓글을 저장하는데 실패하였습니다');
             }
         })
 
     }
+
+    // console.log(commentList);
 
     return (
         <div style={{ marginTop: '50px'}}>

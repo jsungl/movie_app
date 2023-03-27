@@ -1,5 +1,15 @@
 const express = require('express');
 const app = express();
+
+// const http = require('http').createServer(app);
+// const { Server } = require("socket.io");
+// const io = new Server(http,{
+//     cors: {
+// 		origin: "*",
+// 		methods: ["GET", "POST"]
+// 	}
+// });
+
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
@@ -16,10 +26,26 @@ app.use('/api/users', require('./routes/user'));
 app.use('/api/favorite', require('./routes/favorite'));
 app.use('/api/comment', require('./routes/comment'));
 app.use('/api/like', require('./routes/like'));
+app.use('/api/notification', require('./routes/notification'));
 
 mongoose.connect(config.dbURI)
-    .then(() => console.log("MongoDB connected!"))
-    .catch((err) => console.log(err));
+.then(() => console.log("MongoDB connected!"))
+.catch((err) => console.log(err));
+
+
+// io.on('connection', function(socket){
+//     console.log('socket 연결~!');
+//     // console.log(socket.id);
+
+//     socket.on('enroll_comment', function(data){
+//         console.log(data);
+//         let body = {
+//             responseTo: data[0].responseTo,
+//             content: data[0].content,
+//             writer: data[0].writer.name
+//         }
+//     });
+// })
 
 
 //배포

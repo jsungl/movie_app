@@ -5,6 +5,7 @@ import LoginPage from './views/LoginPage/LoginPage';
 import RegisterPage from './views/RegisterPage/RegisterPage';
 import MovieDetail from './views/MovieDetail/MovieDetail';
 import FavoritePage from './views/FavoritePage/FavoritePage';
+import NotFoundPage from './views/NotFoundPage/NotFoundPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       </Route>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
+      <Route path='*' element={<NotFoundPage/>}/>
     </Routes>
   );
 }

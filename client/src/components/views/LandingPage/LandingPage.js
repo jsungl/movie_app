@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Auth from '../../../hoc/auth';
-import { useSelector } from "react-redux";
 import { API_URL, IMAGE_BASE_URL } from '../../Config';
 import { API_KEY } from '../../Key';
 import MainImage from './Sections/MainImage';
@@ -11,8 +10,6 @@ function LandingPage() {
     const [movies, setMovies] = useState([]);
     const [mainImage, setMainImage] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const user = useSelector(state => state.user);
-    // console.log(user);
 
     useEffect(() => {
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
@@ -39,39 +36,34 @@ function LandingPage() {
         });
     }
 
-    if(user.userData) {
-        return (
-            <div>
-                {/* <div>
-                    {user.userData.isAuth ? <span>반갑습니다. {user.userData.name}</span> : <span>시작페이지</span>}
-                </div> */}
-
-                {
-                    mainImage.length > 0 && <MainImage images={mainImage} />
-                }
-                
-                <div style={{ width: '100%' }}>
-                    <h2>What's Popular</h2>
-                    <hr/>
-                    <Row gutter={[16,16]}>
-                        {movies && movies.map((movie, index) => (
-                            <GridCard
-                                key={index} 
-                                image={movie.poster_path ? `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
-                                movieId={movie.id}
-                                movieName={movie.original_title}
-                            />
-                        ))}
-                    </Row>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button size='large' onClick={loadMoreItems}>Load More</Button>
-                </div>
-                
+   
+    return (
+        <div>
+            {
+                mainImage.length > 0 && <MainImage images={mainImage} />
+            }
+            
+            <div style={{ width: '100%' }}>
+                <h2>What's Popular</h2>
+                <hr/>
+                <Row gutter={[16,16]}>
+                    {movies && movies.map((movie, index) => (
+                        <GridCard
+                            key={index} 
+                            image={movie.poster_path ? `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
+                            movieId={movie.id}
+                            movieName={movie.original_title}
+                        />
+                    ))}
+                </Row>
             </div>
-        );
-    }
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size='large' onClick={loadMoreItems}>Load More</Button>
+            </div>
+            
+        </div>
+    );
 }
 
 export default Auth(LandingPage, null)

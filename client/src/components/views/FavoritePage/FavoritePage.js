@@ -3,8 +3,9 @@ import './favorite.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from "react-redux";
-import { Button } from 'antd';
+import { Button, Empty, Image } from 'antd';
 import { IMAGE_BASE_URL } from '../../Config';
+import NotFoundImage from '../../../assets/images/error.jpg';
 
 
 function FavoritePage() {
@@ -21,7 +22,6 @@ function FavoritePage() {
         })
         .then(res => {
             if(res.data.success) {
-                console.log(res.data.favorites);
                 setFavorites([...res.data.favorites]);
             }else {
                 alert('favorite 영화 정보 가져오기 실패');
@@ -47,7 +47,8 @@ function FavoritePage() {
         const content = (
             <div style={{ display: 'flex' }}>
                 <div style={{ width: '30%' }}>
-                    {favorite.moviePost ? <img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} width="125" height="125" alt="MoviePost"/> : "no image"}
+                    <Image src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} fallback={NotFoundImage} width={125} height={125}/>
+                    {/* favorite.moviePost ? <img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} width="125" height="125" alt="MoviePost"/> : "no image" */}
                 </div>
                 <div style={{ flexGrow: '1', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {favorite.movieTitle}
@@ -65,28 +66,31 @@ function FavoritePage() {
         );
     })
 
-    const emptyCards = 
-        <tr>
-            <td colSpan="3" style={{ textAlign: 'center' }}>empty</td>
-        </tr>
-    
+    const emptyCards = <Empty />;
+    // <tr>
+    //     <td colSpan="3" style={{ textAlign: 'center' }}>empty</td>
+    // </tr>
+        
 
     return (
         <div>
             <h2> Favorite Movies </h2>
             <hr/>
-            <table className='favoriteTable'>
-                <thead>
-                    <tr>
-                        <th>Movie Title</th>
-                        <th>Movie Runtime</th>
-                        <th>Remove from favorite</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {favorites.length === 0 ? emptyCards : renderCards}
-                </tbody>
-            </table>
+            {
+                favorites.length === 0 ? emptyCards : 
+                <table className='favoriteTable'>
+                    <thead>
+                        <tr>
+                            <th>Movie Title</th>
+                            <th>Movie Runtime</th>
+                            <th>Remove from favorite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderCards}
+                    </tbody>
+                </table>
+            }
         </div>
 
     );

@@ -11,6 +11,7 @@ import GridCard from '../Common/GridCard';
 import Favorite from './Sections/Favorite';
 import { Button, Row } from 'antd';
 import axios from 'axios';
+// import { receiveSocketMessage } from '../Common/SocketIo';
 
 function MovieDetail() {
     let { movieId } = useParams();
@@ -19,7 +20,6 @@ function MovieDetail() {
     const [casts, setCasts] = useState([]);
     const [commentList, setCommentList] = useState([]);
     const [actorToggle, setActorToggle] = useState(false);
-    // console.log(user.userData === true);
 
     useEffect(() => {
 
@@ -58,7 +58,6 @@ function MovieDetail() {
             }
         })
         
-        
     },[movieId])
 
 
@@ -66,8 +65,12 @@ function MovieDetail() {
         setActorToggle(!actorToggle);
     }
 
-    const refreshComment = (newComment) => {
-        setCommentList(commentList.concat(newComment));
+    const refreshComment = (newComment, state) => {
+        if(state === 'save') {
+            setCommentList(commentList.concat(newComment));
+        }else {
+            setCommentList(newComment);
+        }
     }
 
 
